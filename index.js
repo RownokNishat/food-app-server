@@ -56,6 +56,20 @@ async function run() {
       res.send(orders);
     });
 
+    app.put("/changeOrdersStatus", async (req, res) => {
+      console.log(req.body.id, req.body.status);
+      const cursor = orderCollection.findOneAndUpdate(
+        { _id: new ObjectId(req.body.id) },
+        {
+          $set: {
+            status: req.body.status,
+          },
+        }
+      );
+
+      res.send(cursor);
+    });
+
     ///////////////////hotel////////////////////////
 
     app.post("/admin/AddFoodCategory", async (req, res) => {
