@@ -105,14 +105,24 @@ async function run() {
           $set: {
             foodName: req.body.foodName,
             price: req.body.price,
-            details: req.body.details,
-            imageUrl: req.body.imageUrl,
+            description: req.body.description,
+            image: req.body.image,
+            quantity: req.body.quantity,
             categoryName: req.body.categoryName,
           },
         }
       );
       // const foodService = await cursor.toArray();
       res.send(cursor);
+    });
+
+    app.get("/categoryFood", async (req, res) => {
+      const cursor = foodDetailsCollection.find({
+        categoryName: req.query.categoryName,
+      });
+      const result = await cursor.toArray();
+      console.log("result", result);
+      res.send(result);
     });
 
     app.delete("/admin/foodDelete/:id", async (req, res) => {
