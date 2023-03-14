@@ -39,6 +39,23 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/login", async (req, res) => {
+      const email = req.body.email;
+      console.log(email);
+      const query = { email: email };
+      const login = await usersCollection.findOne(query);
+      console.log(login);
+      res.send(login);
+    });
+
+    app.put("/getUserData", async (req, res) => {
+      const id = req.body.id;
+      const query = { _id: new ObjectId(id) };
+      const login = await usersCollection.findOne(query);
+      console.log(login);
+      res.send(login);
+    });
+
     ////////orders api///////
     app.post("/orders", async (req, res) => {
       const orders = req.body;
